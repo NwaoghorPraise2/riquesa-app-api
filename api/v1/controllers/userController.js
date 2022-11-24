@@ -13,4 +13,4 @@ let getUsers = (req, res) => {
 
 module.exports = {
     getUsers
-}
+};
