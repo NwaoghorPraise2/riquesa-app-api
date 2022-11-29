@@ -1,7 +1,7 @@
 {
   "name": "Requiza-Api",
   "version": "1.0.0",
-  "main": "./src/index.js",
+  "main": "./server.js",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./server.js"

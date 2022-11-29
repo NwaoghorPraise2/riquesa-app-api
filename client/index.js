@@ -1,5 +1,23 @@
 console.log('Client Called');
-// const get = document.getElementById('get');
-// get.innerHTML('Working');
-// windows.alert('Welcome Bro.');
-// document.write('Versioning is woriking');
+const test = document.getElementById('get');
+
+fetch('http://localhost:5500/api/v1', {
+    method: 'get'
+})
+.then ((res)=> res.json())
+
+.then ( (users) =>{
+    // const userss = users.body;
+    let check = users;
+    let fine = check.users;
+
+    console.log(check.users)
+
+    fine.forEach(username => {
+        let final = username.username;
+        document.write(`<p>${final}</p>`)
+    });
+    // test.innerText = users.users[2].username;
+
+})
+.catch((err) => console.log(err))

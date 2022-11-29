@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const app = express();
 
 app.use(morgan('dev'));
+app.use(express.static('client'))
 app.use(express.json());
 app.use((req, res, next) => {
         console.log(req.url);
