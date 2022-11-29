@@ -15,12 +15,22 @@ const getUsers = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const user = await req.body;
+
+        if (!user) {
+            res.status(404).json({
+                status: 'Failed',
+                message: 'No content found'
+            })
+        }
+
+        console.log(user);
         users.push(user);
         res.status(201).json({
             status: 'success',
             message: 'User Created',
             user
         })
+
     } catch (error) {
         res.status(500).json({
             status: 'Failed',
