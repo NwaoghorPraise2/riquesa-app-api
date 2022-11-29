@@ -1,9 +1,10 @@
 const {users} = require('../models/userModel');
 
-let getUsers = (req, res) => {
+const getUsers = async (req, res) => {
     try {
         res.status(200).json({
-        'message': 'modified',
+        status: 'success',
+        message: 'Users Found',
         users
     })  
     } catch (error) {
@@ -11,6 +12,23 @@ let getUsers = (req, res) => {
     } 
 } 
 
+const createUser = async (req, res) => {
+    try {
+        const user = await req.body;
+        users.push(user);
+        res.status(201).json({
+            status: 'success',
+            message: 'User Created',
+            user
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: 'Failed',
+            message: error.message
+        })
+    }
+};
 module.exports = {
-    getUsers
+    getUsers,
+    createUser
 };
