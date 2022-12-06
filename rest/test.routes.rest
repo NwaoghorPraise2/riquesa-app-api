@@ -6,5 +6,9 @@ POST http://localhost:5500/api/v1 HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "raise"
+    "username": "Praise"
 }
+
+###
+//client test
+GET http://localhost:5500 HTTP/1.1

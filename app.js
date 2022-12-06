@@ -5,7 +5,10 @@ const morgan = require('morgan');
 
 const app = express();
 
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'developmemt'){
+    app.use(morgan('dev'));
+}
+
 app.use(express.static('client'))
 app.use(express.json());
 app.use((req, res, next) => {

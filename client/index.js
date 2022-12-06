@@ -16,8 +16,7 @@ fetch('http://localhost:5500/api/v1', {
     fine.forEach(username => {
         let final = username.username;
         document.write(`<p>${final}</p>`)
-    });
-    // test.innerText = users.users[2].username;
+    })
 
 })
 .catch((err) => console.log(err))
