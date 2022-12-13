@@ -22,8 +22,7 @@ const createUser = async (req, res) => {
                 message: 'No content found'
             })
         }
-
-        console.log(user);
+        
         users.push(user);
         res.status(201).json({
             status: 'success',

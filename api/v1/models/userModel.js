@@ -1,5 +1,26 @@
+const mongoose = require('mongoose');
 
-let users = [];
+
+const userModel = mongoose.Schema ({
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = {
