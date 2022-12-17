@@ -1,5 +1,5 @@
 
-GET http://localhost:5500/api/v1 HTTP/1.1
+GET http://localhost:5500/api/v1/user HTTP/1.1
 
 ###
 POST http://localhost:5500/api/v1 HTTP/1.1
