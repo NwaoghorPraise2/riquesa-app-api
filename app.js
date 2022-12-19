@@ -19,6 +19,8 @@ connect();
 //Middlewares
 app.use(express.static('client'));
 app.use(express.json());
+
+//api versioning custom middleware
 app.use((req, res, next) => {
   let version = req.url.match(/\/api\/(v[0-9]+).*/) || [];
   version = version[1] || '';
