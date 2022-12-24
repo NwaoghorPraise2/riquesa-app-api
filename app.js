@@ -8,7 +8,7 @@ const connect = require('./api/v1/config/database');
 //Initiallized express
 const app = express();
 
-//Logger middleware setup
+//Logger middleware setup and Custom Middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -19,6 +19,10 @@ connect();
 //Middlewares
 app.use(express.static('client'));
 app.use(express.json());
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 //api versioning custom middleware
 app.use((req, res, next) => {
