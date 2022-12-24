@@ -31,9 +31,15 @@ const userModel = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
-  verificationCode: String,
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpire: {
+    type: Date,
+  },
+  verificationCode: {
+    type: String,
+  },
   isVerified: {
     type: Boolean,
     default: false,
