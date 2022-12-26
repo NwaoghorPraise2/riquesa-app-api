@@ -1,7 +1,9 @@
-// const User = require('../models/userModel');
+// const {usersModel} = require('../models/index');
+
+// const User = usersModel;
 
 exports.greet = () => {
-  console.log('Wellcome');
+   console.log('Wellcome');
 };
 
 // module.exports = {
