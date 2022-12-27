@@ -1,11 +1,14 @@
 GET http://localhost:5500/api/v1/user HTTP/1.1
 
 ###
-POST http://localhost:5500/api/v1 HTTP/1.1
+POST http://localhost:5500/api/v1/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "Praise"
+    "username": "testUser1", 
+    "password": "tesyuser1",
+    "confirmPassword": "tesyuser2",
+    "email": "test4@test.com"
 }
 
 ###
