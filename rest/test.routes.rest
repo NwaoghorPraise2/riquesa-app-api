@@ -5,10 +5,10 @@ POST http://localhost:5500/api/v1/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "testUser1", 
-    "password": "tesyuser1",
-    "confirmPassword": "tesyuser2",
-    "email": "test4@test.com"
+    "username": "testUser3", 
+    "password": "tesyuser3",
+    "confirmPassword": "tesyuser3",
+    "email": "test6@test.com"
 }
 
 ###

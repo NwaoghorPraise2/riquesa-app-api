@@ -11,7 +11,10 @@ const createUser = async (req, res) => {
          res.status(403);
          throw new Error('User already Exists');
       }
-      const newUser = await User.create(...req.body);
+
+      const newUser = await User.create(req.body);
+      if (!newUser) throw new Error('User was not created');
+
       res.status(201).json({
          status: 'success',
          message: 'User Created Successfully',
@@ -19,7 +22,6 @@ const createUser = async (req, res) => {
             user: newUser,
          },
       });
-      // if(!newUser) return throw new Error;
    } catch (err) {
       res.status(400).json({
          status: 'fail',
