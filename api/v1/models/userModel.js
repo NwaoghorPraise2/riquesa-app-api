@@ -24,33 +24,27 @@ const userModel = mongoose.Schema({
    password: {
       type: String,
       required: [true, 'Password cannot be blank'],
+      select: false,
    },
-   confirmPassword: {
-      type: String,
-      required: [true, 'Confirm Password cannot be blank'],
-      validate: {
-         validator: function (val) {
-            return val === this.password;
-         },
-         message: 'Confirm Password does not match Password.',
-      },
-   },
-   role: {
+   userRole: {
       type: String,
       default: 'user',
       enum: {
          values: ['user', 'admin'],
          message: 'roles has to be ethier: user or admin',
       },
+      select: false,
    },
    resetPasswordToken: {
       type: String,
    },
    resetPasswordExpire: {
       type: Date,
+      select: false,
    },
    verificationCode: {
       type: String,
+      select: false,
    },
    isVerified: {
       type: Boolean,

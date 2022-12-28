@@ -2,6 +2,20 @@ const {usersModel} = require('../models/index');
 
 const User = usersModel;
 
+//confirm Password Middleware
+const confirmPassword = async (req, res, next) => {
+   try {
+      if (req.body.password !== req.body.confirmPassword)
+         return res.status(400).json({
+            success: 'fail',
+            message: 'Password and Confirm Password are not the same',
+         });
+      next();
+   } catch (err) {
+      next(err);
+   }
+};
+
 const createUser = async (req, res) => {
    try {
       const {email} = req.body;
@@ -32,4 +46,5 @@ const createUser = async (req, res) => {
 
 module.exports = {
    createUser,
+   confirmPassword,
 };
