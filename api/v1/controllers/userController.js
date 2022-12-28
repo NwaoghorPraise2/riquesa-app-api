@@ -44,7 +44,29 @@ const createUser = async (req, res) => {
    }
 };
 
+const getAllUsers = async (req, res) => {
+   try {
+      const users = await User.find();
+      if (!users) throw new Error('Users not found');
+
+      res.status(200).json({
+         status: 'Success',
+         results: users.lenght,
+         message: 'users found',
+         data: {
+            users,
+         },
+      });
+   } catch (err) {
+      res.status(400).json({
+         status: 'fail',
+         message: err.message,
+      });
+   }
+};
+
 module.exports = {
    createUser,
    confirmPassword,
+   getAllUsers,
 };

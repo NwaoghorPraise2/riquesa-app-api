@@ -6,9 +6,10 @@ const connect = async () => {
       const uri = process.env.MONGO_URL;
       mongoose.set('strictQuery', false);
       mongoose.connect(uri);
-      return 'Connected to MongoDB';
+      console.log('Connected to MongoDB');
    } catch (err) {
-      return err.message;
+      console.log(err.message);
+      process.exit();
    }
 };
 

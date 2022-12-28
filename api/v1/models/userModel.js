@@ -33,18 +33,15 @@ const userModel = mongoose.Schema({
          values: ['user', 'admin'],
          message: 'roles has to be ethier: user or admin',
       },
-      select: false,
    },
    resetPasswordToken: {
       type: String,
    },
    resetPasswordExpire: {
       type: Date,
-      select: false,
    },
    verificationCode: {
       type: String,
-      select: false,
    },
    isVerified: {
       type: Boolean,
