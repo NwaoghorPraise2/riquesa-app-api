@@ -1,3 +1,5 @@
+const AppError = require('../utils/appError');
+
 const sendProductionError = (err, res) => {
    const {isOperational} = err;
 
@@ -23,6 +25,13 @@ const sendDevelopmentError = (err, res) => {
    });
 };
 
+const sendDBValidationError = (err) => {
+   const error = Object.values(err.errors).map((el) => el.message);
+
+   const message = `Invalid data input: ${error.join('/ ')}`;
+   return new AppError(message, 400);
+};
+
 module.exports = (err, req, res, next) => {
    err.statusCode = err.statusCode || 500;
    err.status = err.status || 'error';
@@ -30,8 +39,12 @@ module.exports = (err, req, res, next) => {
    const envState = process.env.NODE_ENV;
 
    if (envState === 'production') {
+      let error = err;
+
+      if (error.name === 'ValidationError') error = sendDBValidationError(error);
+
       sendProductionError(err, res);
    } else if (envState === 'development') {
-      sendDevelopmentError(err, res);
+      sendDevelopmentError(err);
    }
 };

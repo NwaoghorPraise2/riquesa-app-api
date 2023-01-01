@@ -6,6 +6,7 @@ const {asyncHandler} = require('../utils/index');
 const confirmPassword = asyncHandler(async (req, res, next) => {
    if (req.body.password !== req.body.confirmPassword)
       return next(new AppError('Password and Confirm Password are not the same', 400));
+   next();
 });
 
 const createUser = asyncHandler(async (req, res, next) => {

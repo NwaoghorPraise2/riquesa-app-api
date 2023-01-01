@@ -1,12 +1,12 @@
-GET http://localhost:5500/api/v1/usaer HTTP/1.1
+GET http://localhost:5500/api/v1/user HTTP/1.1
 
 ###
 POST http://localhost:5500/api/v1/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "testUser33", 
-    "email": "test33@test.com"
+    "username": "testUser3wes", 
+    "email": "test45@test.com"
 }
 
 ###
