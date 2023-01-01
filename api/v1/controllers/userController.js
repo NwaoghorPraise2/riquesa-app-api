@@ -3,18 +3,10 @@ const AppError = require('../utils/appError');
 const {asyncHandler} = require('../utils/index');
 
 //confirm Password Middleware
-const confirmPassword = async (req, res, next) => {
-   try {
-      if (req.body.password !== req.body.confirmPassword)
-         return res.status(400).json({
-            success: 'fail',
-            message: 'Password and Confirm Password are not the same',
-         });
-      next();
-   } catch (err) {
-      next(err);
-   }
-};
+const confirmPassword = asyncHandler(async (req, res, next) => {
+   if (req.body.password !== req.body.confirmPassword)
+      return next(new AppError('Password and Confirm Password are not the same', 400));
+});
 
 const createUser = asyncHandler(async (req, res, next) => {
    const {email} = req.body;
