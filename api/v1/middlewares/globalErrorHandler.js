@@ -1,3 +1,29 @@
+
+
+const sendProductionError = (err, res) => {
+    const isOperational = err.isOperational;
+
+    if(isOperational) {
+        res.status(err.statusCode).json({
+            status: err.status,
+            message: err.message
+        });
+    } else {
+        res.status(500).json({
+            status:'error',
+            message: 'Something went wrong';
+        }); 
+    }
+};
+
+const sendDevelopmentError = (err, res) => {
+   res.status(err.statusCode).json({
+      status: err.status,
+      error: err,
+      stack: err.stack,
+   });
+};
+
 module.exports = (err, req, res, next) => {
    err.statusCode = err.statusCode || 500;
    err.status = err.status || 'error';
