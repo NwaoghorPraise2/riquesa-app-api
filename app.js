@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const morgan = require('morgan');
 const connect = require('./api/v1/config/database');
+const {globalErrorHandler} = require('./api/v1/middlewares/index');
+const {appError} = require('./api/v1/utils/index')
 
 //Initiallized express
 const app = express();
@@ -48,5 +50,15 @@ app.use((req, res, next) => {
    }
    next();
 });
+
+app.all('*', (req, res, next) => {
+   res.status(404).json({
+      status: 'failed',
+      message: `We do not have this route ${req.originalUrl} on our server`,
+   });
+   next();
+});
+
+app.use(globalErrorHandler);
 
 module.exports = app;

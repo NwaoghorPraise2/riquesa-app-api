@@ -1,4 +1,5 @@
 const {usersModel} = require('../models/index');
+const {asyncHandler, appError} = require('../utils/index');
 
 const User = usersModel;
 
@@ -16,14 +17,12 @@ const confirmPassword = async (req, res, next) => {
    }
 };
 
-const createUser = async (req, res) => {
-   try {
+const createUser = asyncHandler(async (req, res, next) => {
       const {email} = req.body;
 
       const userExist = await User.findOne({email});
       if (userExist) {
-         res.status(403);
-         throw new Error('User already Exists');
+         next( new appError('User already Exists', 403));
       }
 
       const newUser = await User.create(req.body);
@@ -36,13 +35,7 @@ const createUser = async (req, res) => {
             user: newUser,
          },
       });
-   } catch (err) {
-      res.status(400).json({
-         status: 'fail',
-         message: err.message,
-      });
-   }
-};
+});
 
 const getAllUsers = async (req, res) => {
    try {
@@ -51,7 +44,6 @@ const getAllUsers = async (req, res) => {
 
       res.status(200).json({
          status: 'Success',
-         results: users.lenght,
          message: 'users found',
          data: {
             users,

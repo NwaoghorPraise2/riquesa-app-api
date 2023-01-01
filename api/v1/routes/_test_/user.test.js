@@ -13,10 +13,10 @@ describe('testing for user get end point', () => {
 
 describe('testing for user post end point', () => {
    const testUser = {
-      username: 'testUser12',
-      password: 'tesyuser12',
-      confirmPassword: 'tesyuser12',
-      email: 'test12@test.com',
+      username: 'testUser17',
+      password: 'tesyuser17',
+      confirmPassword: 'tesyuser17',
+      email: 'test17@test.com',
    };
 
    test('testing response for create user', async () => {
@@ -25,7 +25,25 @@ describe('testing for user post end point', () => {
          .send(testUser)
          .expect('Content-Type', /json/)
          .expect(201);
+   });
+});
 
-      expect(res.body).toMatchObject(testUser);
+//error case
+describe('testing for user already exist post end point', () => {
+   const testUser = {
+      username: 'testUser13',
+      password: 'tesyuser13',
+      confirmPassword: 'tesyuser13',
+      email: 'test13@test.com',
+   };
+
+   test('testing error', async () => {
+      const res = await request(app)
+         .post('/api/v1/user')
+         .send(testUser)
+         .expect('Content-Type', /json/)
+         .expect(400);
+
+      expect(res.body.message).toStrictEqual('User already Exists');
    });
 });
