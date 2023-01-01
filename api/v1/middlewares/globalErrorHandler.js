@@ -1,19 +1,17 @@
-
-
 const sendProductionError = (err, res) => {
-    const isOperational = err.isOperational;
+   const {isOperational} = err;
 
-    if(isOperational) {
-        res.status(err.statusCode).json({
-            status: err.status,
-            message: err.message
-        });
-    } else {
-        res.status(500).json({
-            status:'error',
-            message: 'Something went wrong';
-        }); 
-    }
+   if (isOperational) {
+      res.status(err.statusCode).json({
+         status: err.status,
+         message: err.message,
+      });
+   } else {
+      res.status(500).json({
+         status: 'error',
+         message: 'Something went wrong',
+      });
+   }
 };
 
 const sendDevelopmentError = (err, res) => {

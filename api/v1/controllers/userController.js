@@ -1,7 +1,6 @@
-const {usersModel} = require('../models/index');
-const {asyncHandler, appError} = require('../utils/index');
-
-const User = usersModel;
+const User = require('../models/userModel');
+const AppError = require('../utils/appError');
+const {asyncHandler} = require('../utils/index');
 
 //confirm Password Middleware
 const confirmPassword = async (req, res, next) => {
@@ -18,44 +17,31 @@ const confirmPassword = async (req, res, next) => {
 };
 
 const createUser = asyncHandler(async (req, res, next) => {
-      const {email} = req.body;
+   const {email} = req.body;
+   const userExist = await User.findOne({email});
 
-      const userExist = await User.findOne({email});
-      if (userExist) {
-         next( new appError('User already Exists', 403));
-      }
+   if (userExist) return next(new AppError('User already Exists', 403));
 
-      const newUser = await User.create(req.body);
-      if (!newUser) throw new Error('User was not created');
-
-      res.status(201).json({
-         status: 'success',
-         message: 'User Created Successfully',
-         data: {
-            user: newUser,
-         },
-      });
+   const newUser = await User.create(req.body);
+   res.status(201).json({
+      status: 'success',
+      message: 'User Created Successfully',
+      data: {
+         user: newUser,
+      },
+   });
 });
 
-const getAllUsers = async (req, res) => {
-   try {
-      const users = await User.find();
-      if (!users) throw new Error('Users not found');
-
-      res.status(200).json({
-         status: 'Success',
-         message: 'users found',
-         data: {
-            users,
-         },
-      });
-   } catch (err) {
-      res.status(400).json({
-         status: 'fail',
-         message: err.message,
-      });
-   }
-};
+const getAllUsers = asyncHandler(async (req, res, next) => {
+   const users = await User.find();
+   res.status(200).json({
+      status: 'Success',
+      message: 'users found',
+      data: {
+         users,
+      },
+   });
+});
 
 module.exports = {
    createUser,
