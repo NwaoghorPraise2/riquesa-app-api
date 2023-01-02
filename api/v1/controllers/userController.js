@@ -9,21 +9,7 @@ const confirmPassword = asyncHandler(async (req, res, next) => {
    next();
 });
 
-const createUser = asyncHandler(async (req, res, next) => {
-   const {email} = req.body;
-   const userExist = await User.findOne({email});
 
-   if (userExist) return next(new AppError('User already Exists', 403));
-
-   const newUser = await User.create(req.body);
-   res.status(201).json({
-      status: 'success',
-      message: 'User Created Successfully',
-      data: {
-         user: newUser,
-      },
-   });
-});
 
 const getAllUsers = asyncHandler(async (req, res, next) => {
    const users = await User.find();
@@ -37,7 +23,6 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
 });
 
 module.exports = {
-   createUser,
    confirmPassword,
    getAllUsers,
 };
