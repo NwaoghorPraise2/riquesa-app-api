@@ -10,13 +10,14 @@ const userModel = mongoose.Schema({
    },
    username: {
       type: String,
-      unique: [true, 'this username has already been used'],
+      unique: [true, 'This username has already been used'],
       required: [true, 'Please choose a username'],
    },
    email: {
       type: String,
       unique: true,
       required: [true, 'Please, fill an email address'],
+      minlength: 8,
    },
    profileImage: {
       type: String,
