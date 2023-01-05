@@ -1,3 +1,4 @@
+/*Global Error Class that extends from the normal Express Error class*/
 class appError extends Error {
    constructor(message, statusCode) {
       super(message);

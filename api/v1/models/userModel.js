@@ -51,12 +51,11 @@ const userModel = mongoose.Schema({
 });
 
 userModel.pre('save', async function (next) {
-   try {
-      this.password = bcrypt.hashSync(this.password, Number(process.env.SALT));
-      next();
-   } catch (err) {
-      next(err);
-   }
+   if (!this.isModified('password')) return next();
+   this.password = await bcrypt.hash(this.password, Number(process.env.SALT));
+
+   // this.passwordConfirm = undefined;
+   next();
 });
 
 const User = mongoose.model('User', userModel);

@@ -14,3 +14,5 @@ const connect = async () => {
 };
 
 module.exports = connect;
+
+//Refactor this code to bes practice

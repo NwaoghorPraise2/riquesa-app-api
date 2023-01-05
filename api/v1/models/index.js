@@ -1,1 +1,0 @@
-exports.usersModel = require('./userModel');
