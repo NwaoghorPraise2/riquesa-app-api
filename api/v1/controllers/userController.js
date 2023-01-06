@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
-const {asyncHandler} = require('../utils/catchAsync');
+const asyncHandler = require('../utils/catchAsync');
 
 //confirm Password Middleware
 const confirmPassword = asyncHandler(async (req, res, next) => {
