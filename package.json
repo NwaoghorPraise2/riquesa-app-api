@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "./server.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "debug": "ndb ./server.js",
     "test": "jest --detectOpenHandles",
