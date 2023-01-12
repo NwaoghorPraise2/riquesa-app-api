@@ -1,6 +1,7 @@
-const User = require('../models/userModel');
-const AppError = require('../utils/appError');
-const asyncHandler = require('../utils/catchAsync');
+/* eslint-disable import/extensions */
+import User from '../models/userModel.js';
+import AppError from '../utils/appError.js';
+import asyncHandler from '../utils/catchAsync.js';
 
 //confirm Password Middleware
 const confirmPassword = asyncHandler(async (req, res, next) => {
@@ -36,7 +37,7 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
    });
 });
 
-module.exports = {
+export default {
    createUser,
    confirmPassword,
    getAllUsers,

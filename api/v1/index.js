@@ -1,7 +1,8 @@
-const app = require('../../app');
-const AppError = require('./utils/appError');
-const {globalErrorHandler} = require('./middlewares/index');
-const userRoutes = require('./routes/userRoute');
+/* eslint-disable import/extensions */
+import app from '../../app.js';
+import AppError from './utils/appError.js';
+import globalErrorHandler from './middlewares/globalErrorHandler.js';
+import userRoutes from './routes/userRoute.js';
 
 app.use('/api/v1/user', userRoutes);
 

@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+import mongoose from 'mongoose';
+import {config} from 'dotenv';
+
+config();
 
 const connect = async () => {
    try {
@@ -13,6 +15,6 @@ const connect = async () => {
    }
 };
 
-module.exports = connect;
+export default connect;
 
 //Refactor this code to bes practice

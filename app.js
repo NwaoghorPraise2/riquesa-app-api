@@ -1,10 +1,16 @@
-const express = require('express');
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-const morgan = require('morgan');
-const connect = require('./api/v1/config/database');
+/* eslint-disable import/extensions */
+import express from 'express';
+import {config} from 'dotenv';
+import fs from 'fs';
+import {join, dirname} from 'path';
+import {fileURLToPath} from 'url';
+import morgan from 'morgan';
+import connect from './api/v1/config/database.js';
 
+// Global Varaibles
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+config();
 //Initiallized express
 const app = express();
 
@@ -17,8 +23,8 @@ if (process.env.NODE_ENV === 'development') {
 connect();
 
 //Middlewares
-app.use(express.static('client'));
 app.use(express.json());
+app.use(express.static('client'));
 app.use((req, res, next) => {
    req.requestTime = new Date().toISOString();
    next();
@@ -30,7 +36,7 @@ app.use((req, res, next) => {
    version = version[1] || '';
 
    if (version !== '') {
-      const appPath = path.join(__dirname, `./api/${version}/index.js`);
+      const appPath = join(__dirname, `./api/${version}/index.js`);
 
       if (!fs.existsSync(appPath)) {
          return res.status(404).json({
@@ -38,15 +44,10 @@ app.use((req, res, next) => {
             message: 'Not Found',
          });
       }
-      require(appPath);
-   } else {
-      require('./client/index');
-      return res.status(200).json({
-         status: 'Success',
-         message: 'Welcome to Client',
-      });
+      import(appPath);
    }
+
    next();
 });
 
-module.exports = app;
+export default app;
