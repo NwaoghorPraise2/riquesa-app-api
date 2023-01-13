@@ -19,9 +19,6 @@ if (process.env.NODE_ENV === 'development') {
    app.use(morgan('dev'));
 }
 
-//connect database (MongoDB)
-connect();
-
 //Middlewares
 app.use(express.json());
 app.use(express.static('client'));
