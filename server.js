@@ -9,7 +9,6 @@ config();
 const PORT = process.env.PORT || 3400;
 const startServer = async () => {
    await connect.connect();
-   await connect.disConnected();
 
    app.listen(PORT, () => {
       console.log(`Requeza on ${PORT} Server Up and Running`);

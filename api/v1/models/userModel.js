@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import {Schema, model} from 'mongoose';
 import bcrypt from 'bcrypt';
 
-const userModel = mongoose.Schema({
+const userModel = Schema({
    fullName: {
       type: String,
    },
@@ -27,6 +27,16 @@ const userModel = mongoose.Schema({
       required: [true, 'Password cannot be blank'],
       select: false,
    },
+   passwordConfirm: {
+      type: String,
+      required: [true, 'Password confirm cannot be blank'],
+      validate: {
+         validator: function (val) {
+            return val === this.password;
+         },
+         message: 'Password must be same as PasswordConfirm',
+      },
+   },
    userRole: {
       type: String,
       default: 'user',
@@ -51,13 +61,14 @@ const userModel = mongoose.Schema({
 });
 
 userModel.pre('save', async function (next) {
+   console.log(this);
    if (!this.isModified('password')) return next();
    this.password = await bcrypt.hash(this.password, Number(process.env.SALT));
 
-   // this.passwordConfirm = undefined;
+   this.passwordConfirm = undefined;
    next();
 });
 
-const User = mongoose.model('User', userModel);
+const User = model('User', userModel);
 
 export default User;

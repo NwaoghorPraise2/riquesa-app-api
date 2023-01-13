@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "./server.js",
   "license": "MIT",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "debug": "ndb ./server.js",
     "test": "jest --detectOpenHandles",
@@ -15,6 +15,7 @@
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.0",
     "supertest": "^6.3.3"
   },

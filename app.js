@@ -5,7 +5,6 @@ import fs from 'fs';
 import {join, dirname} from 'path';
 import {fileURLToPath} from 'url';
 import morgan from 'morgan';
-import connect from './api/v1/config/database.js';
 
 // Global Varaibles
 const __dirname = dirname(fileURLToPath(import.meta.url));

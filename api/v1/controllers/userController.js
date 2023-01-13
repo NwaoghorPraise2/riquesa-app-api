@@ -3,13 +3,6 @@ import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 import asyncHandler from '../utils/catchAsync.js';
 
-//confirm Password Middleware
-const confirmPassword = asyncHandler(async (req, res, next) => {
-   if (req.body.password !== req.body.confirmPassword)
-      return next(new AppError('Password and Confirm Password are not the same', 400));
-   next();
-});
-
 const createUser = asyncHandler(async (req, res, next) => {
    const {email} = req.body;
    const userExist = await User.findOne({email});
@@ -39,6 +32,5 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
 
 export default {
    createUser,
-   confirmPassword,
    getAllUsers,
 };
