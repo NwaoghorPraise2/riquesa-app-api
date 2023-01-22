@@ -1,6 +1,5 @@
+// eslint-disable-next-line import/extensions
 import AppError from '../utils/appError.js';
-
-//TypeError
 
 const sendProductionError = (err, res) => {
    const {isOperational} = err;
@@ -37,7 +36,6 @@ const sendDBValidationError = (err) => {
 export default (err, req, res, next) => {
    err.statusCode = err.statusCode || 500;
    err.status = err.status || 'error';
-   // console.log(err);
 
    const envState = process.env.NODE_ENV;
 

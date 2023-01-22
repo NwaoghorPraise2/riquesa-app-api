@@ -30,7 +30,4 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
    });
 });
 
-export default {
-   createUser,
-   getAllUsers,
-};
+export default {getAllUsers, createUser};

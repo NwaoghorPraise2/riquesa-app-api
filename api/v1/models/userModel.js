@@ -1,6 +1,7 @@
 import {Schema, model} from 'mongoose';
 import bcrypt from 'bcrypt';
 
+//Creating the user schema for DB
 const userModel = Schema({
    fullName: {
       type: String,
@@ -60,12 +61,13 @@ const userModel = Schema({
    },
 });
 
+//Mongoose middleware function to hash password before persiting to DB
 userModel.pre('save', async function (next) {
-   console.log(this);
-   if (!this.isModified('password')) return next();
-   this.password = await bcrypt.hash(this.password, Number(process.env.SALT));
+   if (!this.isModified('password')) return next(); //Check if password was modified recently
 
+   this.password = await bcrypt.hash(this.password, Number(process.env.SALT)); //Hashing the password
    this.passwordConfirm = undefined;
+
    next();
 });
 
