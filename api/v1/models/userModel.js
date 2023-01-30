@@ -71,6 +71,9 @@ userModel.pre('save', async function (next) {
    next();
 });
 
+userModel.methods.verifyPassword = async (userInput, password) =>
+   await bcrypt.compare(userInput, password);
+
 const User = model('User', userModel);
 
 export default User;
