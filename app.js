@@ -45,8 +45,11 @@ app.use((req, res, next) => {
       } 
 
       import(appPath);
-   }
-
+   } else {
+      import('./client');
+   } 
+   
+   
    next();
 });
 
