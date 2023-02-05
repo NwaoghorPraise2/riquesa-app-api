@@ -17,6 +17,9 @@ const responseSender = (res, user, statusCode, message) => {
    });
 };
 
+// Route --------- POST api/users
+// Description --- Register users
+// Access -------- Public
 const signup = asyncHandler(async (req, res, next) => {
    const newUser = await User.create({
       username: req.body.username,
@@ -24,9 +27,9 @@ const signup = asyncHandler(async (req, res, next) => {
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
    });
-   const message = 'User created successfully';
-   //send responses
-   responseSender(res, newUser, 200, message);
+
+   //send  response
+   responseSender(res, newUser, 201, 'User created successfully');
 });
 
 const login = asyncHandler(async (req, res, next) => {
@@ -44,8 +47,8 @@ const login = asyncHandler(async (req, res, next) => {
       return next(new AppError('Invalid Email or Password entered.', 401));
    }
 
-   const message = 'Login Successful';
-   responseSender(res, user, 200, message);
+   //send response
+   responseSender(res, user, 200, 'Login Successful');
 });
 
 export default {signup, login};

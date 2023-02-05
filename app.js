@@ -1,13 +1,14 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 import {config} from 'dotenv';
-import fs from 'fs';
-import {join, dirname} from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import {fileURLToPath} from 'url';
 import morgan from 'morgan';
+import appError from './api/v1/utils/appError.js';
 
 // Global Varaibles
-const __dirname = dirname(fileURLToPath(import.meta.url));
+
 
 config();
 //Initiallized express
@@ -20,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 
 //Middlewares
 app.use(express.json());
-app.use(express.static('client'));
+// app.use(express.static('client'));
 app.use((req, res, next) => {
    req.requestTime = new Date().toISOString();
    next();
@@ -32,14 +33,17 @@ app.use((req, res, next) => {
    version = version[1] || '';
 
    if (version !== '') {
-      const appPath = join(__dirname, `./api/${version}/index.js`);
+      const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+      console.log(__dirname);
+      const appPath = path.join(__dirname, `/api/${version}/index.js`);
+
+      console.log(appPath);
 
       if (!fs.existsSync(appPath)) {
-         return res.status(404).json({
-            status: 'Error',
-            message: 'Not Found',
-         });
-      }
+         next(new appError('Route not found', 404));
+      } 
+
       import(appPath);
    }
 

@@ -71,9 +71,11 @@ userModel.pre('save', async function (next) {
    next();
 });
 
+//Mongoose middleware function to verify user password
 userModel.methods.verifyPassword = async (userInput, password) =>
    await bcrypt.compare(userInput, password);
 
+//Creating a model from the schema
 const User = model('User', userModel);
 
 export default User;
