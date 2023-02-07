@@ -1,16 +1,14 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 import {config} from 'dotenv';
+import morgan from 'morgan';
 import * as fs from 'fs';
 import * as path from 'path';
 import {fileURLToPath} from 'url';
-import morgan from 'morgan';
-import appError from './api/v1/utils/appError.js';
-
-// Global Varaibles
-
+import loadApi from './api/v1/index.js';
 
 config();
+
 //Initiallized express
 const app = express();
 
@@ -21,35 +19,29 @@ if (process.env.NODE_ENV === 'development') {
 
 //Middlewares
 app.use(express.json());
-// app.use(express.static('client'));
-app.use((req, res, next) => {
-   req.requestTime = new Date().toISOString();
-   next();
-});
 
 //api versioning custom middleware
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
    let version = req.url.match(/\/api\/(v[0-9]+).*/) || [];
    version = version[1] || '';
 
    if (version !== '') {
       const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
       console.log(__dirname);
       const appPath = path.join(__dirname, `/api/${version}/index.js`);
-
       console.log(appPath);
 
       if (!fs.existsSync(appPath)) {
-         next(new appError('Route not found', 404));
-      } 
+       return res.status(404).json({
+         status: 'fail',
+         message: `This ${version} is not registered on this API`
+       })
+      }
 
-      import(appPath);
+   await import(appPath).then(app);
    } else {
-      import('./client');
-   } 
-   
-   
+      app.use(express.static('client'));
+   }
    next();
 });
 
