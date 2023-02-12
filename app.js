@@ -5,7 +5,6 @@ import morgan from 'morgan';
 import * as fs from 'fs';
 import * as path from 'path';
 import {fileURLToPath} from 'url';
-import loadApi from './api/v1/index.js';
 
 config();
 
@@ -19,6 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 
 //Middlewares
 app.use(express.json());
+app.use(express.static('client'));
 
 //api versioning custom middleware
 app.use(async (req, res, next) => {
@@ -37,11 +37,11 @@ app.use(async (req, res, next) => {
          message: `This ${version} is not registered on this API`
        })
       }
+   //load Api by version
+   const loadApi  = await import(appPath);
+   loadApi.default(app);
+   } 
 
-   await import(appPath).then(app);
-   } else {
-      app.use(express.static('client'));
-   }
    next();
 });
 
