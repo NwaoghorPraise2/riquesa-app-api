@@ -17,7 +17,7 @@ const responseSender = (res, user, statusCode, message) => {
    });
 };
 
-// Route --------- POST api/users
+// Route --------- POST api/v1/auth/signup
 // Description --- Register users
 // Access -------- Public
 const signup = asyncHandler(async (req, res, next) => {
@@ -32,6 +32,9 @@ const signup = asyncHandler(async (req, res, next) => {
    responseSender(res, newUser, 201, 'User created successfully');
 });
 
+// Route --------- POST api/v1/auth/login
+// Description --- Log users in
+// Access -------- Public
 const login = asyncHandler(async (req, res, next) => {
    const {email, username, password} = req.body;
 
