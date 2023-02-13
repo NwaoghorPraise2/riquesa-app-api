@@ -5,8 +5,10 @@ import userRoutes from './routes/userRoute.js';
 import authRoutes from './routes/authRoute.js';
 
 export default (app) => {
-   app.use('/api/v1/auth', authRoutes); //Authentication Route mounting
-   app.use('/api/v1/user', userRoutes); //User Resorces Route Mounting
+   //Authentication Route mounting
+   app.use('/api/v1/auth', authRoutes);
+   //User Resorces Route Mounting
+   app.use('/api/v1/user', userRoutes);
 
    //This helps to return an error message a requested route is invalid.
    app.all('*', (req, res, next) => {
