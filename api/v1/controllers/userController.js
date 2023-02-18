@@ -15,10 +15,9 @@ const responseSender = (res, user, statusCode, message) => {
 
 const getAllUsers = asyncHandler(async (req, res, next) => {
    const users = await User.find();
-
+   
    //send responses
-   
-   
+   responseSender(res, user, statusCode, 'Users loaded');
 });
 
 export default {getAllUsers};
