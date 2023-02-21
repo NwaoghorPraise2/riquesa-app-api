@@ -1,21 +1,8 @@
 /* eslint-disable import/extensions */
 import User from '../models/userModel.js';
 import asyncHandler from '../utils/catchAsync.js';
-import signToken from '../middlewares/authmiddleware.js';
 import AppError from '../utils/appError.js';
-
-//reuseable functions
-const responseSender = (res, user, statusCode, message) => {
-   const accessToken = signToken(user._id);
-   res.status(statusCode).json({
-      status: 'Success',
-      message: message,
-      accessToken,
-      data: {
-         user: user,
-      },
-   });
-};
+import {authResponseSender} from '../utils/response.js';
 
 // Route --------- POST api/v1/auth/signup
 // Description --- Register users
@@ -29,7 +16,7 @@ const signup = asyncHandler(async (req, res, next) => {
    });
 
    //send  response
-   responseSender(res, newUser, 201, 'User created successfully');
+   authResponseSender(res, newUser, 201, 'User created successfully');
 });
 
 // Route --------- POST api/v1/auth/login
@@ -51,7 +38,7 @@ const login = asyncHandler(async (req, res, next) => {
    }
 
    //send response
-   responseSender(res, user, 200, 'Login Successful');
+   authResponseSender(res, user, 200, 'Login Successful');
 });
 
-export default {signup, login};
+export {signup, login};

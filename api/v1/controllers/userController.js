@@ -1,23 +1,13 @@
 /* eslint-disable import/extensions */
 import User from '../models/userModel.js';
-// import AppError from '../utils/appError.js';
 import asyncHandler from '../utils/catchAsync.js';
-
-const responseSender = (res, user, statusCode, message) => {
-   res.status(statusCode).json({
-      status: 'Success',
-      message: message,
-      data: {
-         user: user,
-      },
-   });
-};
+import {userResponseSender} from '../utils/response.js';
 
 const getAllUsers = asyncHandler(async (req, res, next) => {
    const users = await User.find();
 
    //send responses
-   responseSender(res, users, 200, 'Users loaded');
+   userResponseSender(res, users, 200, 'Users loaded');
 });
 
 export default {getAllUsers};
