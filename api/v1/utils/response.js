@@ -1,6 +1,7 @@
-//reuseable functions
-import signToken from '../middlewares/authmiddleware';
+// eslint-disable-next-line import/extensions
+import signToken from '../middlewares/authmiddleware.js';
 
+//Response Sender fro authcontroller
 const authResponseSender = (res, user, statusCode, message) => {
    const accessToken = signToken(user._id);
    res.status(statusCode).json({
@@ -13,6 +14,7 @@ const authResponseSender = (res, user, statusCode, message) => {
    });
 };
 
+//Response sender for userController
 const userResponseSender = (res, user, statusCode, message) => {
    res.status(statusCode).json({
       status: 'Success',

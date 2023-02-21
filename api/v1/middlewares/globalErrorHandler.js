@@ -33,6 +33,13 @@ const sendDBValidationError = (err) => {
    return new AppError(message, 400);
 };
 
+// const sendDuplicateError = (err) => {
+//    const error = Object.values(err).map((el) => el.message);
+
+//    const message = `Already exists: ${error.join('/ ')}`;
+//    return new AppError(message, 400);
+// };
+
 export default (err, req, res, next) => {
    err.statusCode = err.statusCode || 500;
    err.status = err.status || 'error';
@@ -42,9 +49,13 @@ export default (err, req, res, next) => {
    if (envState === 'production') {
       let error = err;
 
+      console.log(error.name);
+
       if (error.name === 'ValidationError') error = sendDBValidationError(error);
 
-      sendProductionError(err, res);
+      // if (error.name === 'MongoServerError') error = sendDuplicateError(error);
+
+      sendProductionError(error, res);
    } else if (envState === 'development') {
       sendDevelopmentError(err, res);
    }
