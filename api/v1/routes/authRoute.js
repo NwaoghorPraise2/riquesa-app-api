@@ -1,10 +1,10 @@
 /* eslint-disable import/extensions */
 import Express from 'express';
-import auth from '../controllers/authController.js';
+import {login, signup} from '../controllers/authController.js';
 
 const router = Express.Router();
 
-router.post('/login', auth.login);
-router.post('/signup', auth.signup);
+router.post('/login', login);
+router.post('/signup', signup);
 
 export default router;
