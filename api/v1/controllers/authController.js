@@ -37,8 +37,9 @@ const login = asyncHandler(async (req, res, next) => {
       return next(new AppError('Invalid Email or Password entered.', 401));
    }
 
+   const {password, ...others} = User._doc;
    //send response
-   authResponseSender(res, user, 200, 'Login Successful');
+   authResponseSender(res, others, 200, 'Login Successful');
 });
 
 export {signup, login};
