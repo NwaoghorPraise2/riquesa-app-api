@@ -9,7 +9,7 @@
     "test": "jest --detectOpenHandles",
     "test-watch": "jest --watch --detectOpenHandles",
     "dev": "nodemon ./server.js",
-    "prod": "NODE_ENV=production nodemon ./server.js"
+    "prod": "NODE_ENV=production node ./server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
