@@ -27,9 +27,9 @@ app.use(async (req, res, next) => {
 
    if (version !== '') {
       const __dirname = path.dirname(fileURLToPath(import.meta.url));
-      console.log(__dirname);
+      // console.log(__dirname);
       const appPath = path.join(__dirname, `/api/${version}/index.js`);
-      console.log(appPath);
+      // console.log(appPath);
 
       if (!fs.existsSync(appPath)) {
        return res.status(404).json({

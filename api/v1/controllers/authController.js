@@ -26,7 +26,7 @@ const login = asyncHandler(async (req, res, next) => {
    const {email, username, password} = req.body;
 
    if (!(email || username) || !password) {
-      return next(new AppError('Please, provide an Email and Password', 400));
+      return next(new AppError('Please, provide an Email or Password', 400));
    }
 
    const user = await User.findOne({
@@ -37,9 +37,11 @@ const login = asyncHandler(async (req, res, next) => {
       return next(new AppError('Invalid Email or Password entered.', 401));
    }
 
-   const {password, ...others} = User._doc;
+   //exclude password field from response
+   user.password = undefined;
+
    //send response
-   authResponseSender(res, others, 200, 'Login Successful');
+   authResponseSender(res, user, 200, 'Login Successful');
 });
 
 export {signup, login};
