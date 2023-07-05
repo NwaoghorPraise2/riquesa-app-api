@@ -17,5 +17,3 @@ const connect = async () => {
 };
 
 export default connect;
-
-//Refactor this code to bes practice
